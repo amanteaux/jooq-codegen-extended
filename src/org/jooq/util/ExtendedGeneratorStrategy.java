@@ -1,44 +1,41 @@
 package org.jooq.util;
 
-import org.jooq.tools.StringUtils;
+import java.io.File;
 
-public class ExtendedGeneratorStrategy extends DefaultGeneratorStrategy {
+import org.jooq.DAO;
 
-	@Override
-	public String getJavaClassName(final Definition definition, final Mode mode) {
-		return getJavaClassName0(definition, mode);
-	}
+public interface ExtendedGeneratorStrategy extends GeneratorStrategy {
+
+	Class<? extends DAO<?, ?, ?>> getSuperDao();
+
+	void setChildEntitiesTargetDirectory(String directory);
+
+	String getChildEntitiesTargetPackage();
+
+	String getFullJavaClassName(Definition definition, ModeExtended mode);
+
+	String getJavaClassName(Definition definition, ModeExtended modeExtended);
+
+	String getJavaPackageName(Definition definition, ModeExtended mode);
+
+	String getFileName(Definition definition, ModeExtended mode);
+
+	File getFile(Definition definition, ModeExtended mode);
 
 	/**
-	 * Transform a table name into a java class name. By default transform "camel_case" into "CamelCase".
-	 * 
-	 * @param tableName
-	 * @return The java class name
+	 * The "mode" by which an artefact should be named
 	 */
-	protected String toProperty(final String tableName) {
-		return StringUtils.toCamelCase(tableName);
-	}
+	enum ModeExtended {
 
-	private String getJavaClassName0(final Definition definition, final Mode mode) {
-		final StringBuilder result = new StringBuilder();
+		/**
+		 * The default mode. This is used when any {@link Definition}'s meta type is being rendered.
+		 */
+		BEAN,
 
-		final String cc = toProperty(definition.getOutputName());
-		result.append(GenerationUtil.convertToJavaIdentifier(cc));
-
-		if (mode == Mode.RECORD) {
-			result.append("Record");
-		} else if (mode == Mode.DAO) {
-			result.insert(0, "Abstract");
-			result.append("Dao");
-		} else if (mode == Mode.INTERFACE) {
-			result.insert(0, "I");
-		} else if (mode == Mode.POJO) {
-			result.append("Pojo");
-		} else if (mode == Mode.DEFAULT) {
-			result.append("Table");
-		}
-
-		return result.toString();
+		/**
+		 * The dao mode. This is used when a {@link TableDefinition}'s dao class is being rendered
+		 */
+		DAO
 	}
 
 }
