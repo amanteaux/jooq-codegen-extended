@@ -63,10 +63,10 @@ public class DefaultExtendedGeneratorStrategy extends DefaultGeneratorStrategy i
 		return childEntitiestargetPackage;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	@Override
-	public Class<? extends DAO<?, ?, ?>> getSuperDao() {
-		return (Class<? extends DAO<?, ?, ?>>) DAOImpl.class;
+	public Class<? extends DAO> getSuperDao() {
+		return DAOImpl.class;
 	}
 
 	@Override

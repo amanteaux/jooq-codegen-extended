@@ -208,7 +208,7 @@ public class JavaExtendedGenerator extends JavaGenerator {
 
 		for (ColumnDefinition column : table.getColumns()) {
 			final String colName = column.getOutputName();
-			final String colClass = getStrategy().getJavaClassName(column, Mode.POJO);
+			final String colClass = getExtendedStrategy().getJavaClassName(column, ModeExtended.METHOD);
 			final String colType = getJavaType(column.getType());
 			final String colIdentifier = getStrategy().getFullJavaIdentifier(column);
 

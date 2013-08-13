@@ -4,9 +4,17 @@ import java.io.File;
 
 import org.jooq.DAO;
 
+/**
+ * 
+ * The extended naming strategy for the {@link JavaExtendedGenerator}
+ * 
+ * @author Aurélien Manteaux
+ * 
+ */
 public interface ExtendedGeneratorStrategy extends GeneratorStrategy {
 
-	Class<? extends DAO<?, ?, ?>> getSuperDao();
+	@SuppressWarnings("rawtypes")
+	Class<? extends DAO> getSuperDao();
 
 	void setChildEntitiesTargetDirectory(String directory);
 
@@ -28,14 +36,19 @@ public interface ExtendedGeneratorStrategy extends GeneratorStrategy {
 	enum ModeExtended {
 
 		/**
-		 * The default mode. This is used when any {@link Definition}'s meta type is being rendered.
+		 * This is used when any {@link Definition}'s bean is being rendered.
 		 */
 		BEAN,
 
 		/**
-		 * The dao mode. This is used when a {@link TableDefinition}'s dao class is being rendered
+		 * This is used when a {@link TableDefinition}'s dao child class is being rendered
 		 */
-		DAO
+		DAO,
+
+		/**
+		 * This is used when a {@link TableDefinition}'s field is rendered into a method like fetchField
+		 */
+		METHOD,
 	}
 
 }
