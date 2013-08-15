@@ -228,6 +228,16 @@ public class JavaExtendedGenerator extends JavaGenerator {
 		out.tab(2).println("}");
 		out.tab(1).println("}");
 
+		out.tab(1).javadoc("Create a new row query using the configuration defined in the DAO");
+		out.tab(1).println("public org.jooq.DSLContext newQuery() {");
+		out.tab(2).println("return org.jooq.impl.DSL.using(configuration());");
+		out.tab(1).println("}");
+
+		out.tab(1).javadoc("Generate a new select query on the %s table using the configuration defined in the DAO", table.getName());
+		out.tab(1).println("public org.jooq.SelectWhereStep<%s> selectFrom%s() {", tableRecord, getStrategy().getJavaClassName(table, Mode.DEFAULT));
+		out.tab(2).println("return newQuery().selectFrom(getTable());");
+		out.tab(1).println("}");
+
 		if (getExtendedStrategy().generateId()) {
 			out.tab(1).javadoc("Generate a new unique ID for the primary key");
 			if (tType == Long.class.getName() || tType == String.class.getName()) {
