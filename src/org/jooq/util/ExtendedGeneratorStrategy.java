@@ -30,6 +30,8 @@ public interface ExtendedGeneratorStrategy extends GeneratorStrategy {
 
 	File getFile(Definition definition, ModeExtended mode);
 
+	boolean generateId();
+
 	/**
 	 * The "mode" by which an artefact should be named
 	 */

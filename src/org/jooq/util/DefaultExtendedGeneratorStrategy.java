@@ -5,7 +5,7 @@ import static org.jooq.util.GenerationUtil.convertToJavaIdentifier;
 import java.io.File;
 
 import org.jooq.DAO;
-import org.jooq.impl.DAOImpl;
+import org.jooq.impl.ExtendedDAOImpl;
 import org.jooq.tools.StringUtils;
 
 public class DefaultExtendedGeneratorStrategy extends DefaultGeneratorStrategy implements ExtendedGeneratorStrategy {
@@ -66,7 +66,7 @@ public class DefaultExtendedGeneratorStrategy extends DefaultGeneratorStrategy i
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Class<? extends DAO> getSuperDao() {
-		return DAOImpl.class;
+		return ExtendedDAOImpl.class;
 	}
 
 	@Override
@@ -129,6 +129,11 @@ public class DefaultExtendedGeneratorStrategy extends DefaultGeneratorStrategy i
 	@Override
 	public String getFileName(final Definition definition, final ModeExtended mode) {
 		return getJavaClassName(definition, mode) + ".java";
+	}
+
+	@Override
+	public boolean generateId() {
+		return true;
 	}
 
 }
