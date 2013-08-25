@@ -100,23 +100,28 @@ public class DefaultExtendedGeneratorStrategy extends DefaultGeneratorStrategy i
 
 		sb.append(getChildEntitiesTargetPackage());
 
-		// [#282] In multi-schema setups, the schema name goes into the package <= I trust you on this Lukas :)
+		// [#282] In multi-schema setups, the schema name goes into the package
 		if (definition.getDatabase().getSchemata().size() > 1) {
 			sb.append(".");
 			sb.append(convertToJavaIdentifier(definition.getSchema().getOutputName()).toLowerCase());
 		}
 
-		// Bean are yet in another subpackage
-		if (mode == ModeExtended.BEAN) {
-			sb.append(".beans");
-		}
-
-		// DAOs too
-		else if (mode == ModeExtended.DAO) {
-			sb.append(".daos");
-		}
+		sb.append(getJavaSubPackageName(mode));
 
 		return sb.toString();
+	}
+
+	@Override
+	public String getJavaSubPackageName(final ModeExtended mode) {
+		if (mode == ModeExtended.BEAN) {
+			return ".beans";
+		}
+
+		if (mode == ModeExtended.DAO) {
+			return ".daos";
+		}
+
+		return "";
 	}
 
 	@Override

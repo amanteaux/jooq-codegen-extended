@@ -26,6 +26,8 @@ public interface ExtendedGeneratorStrategy extends GeneratorStrategy {
 
 	String getJavaPackageName(Definition definition, ModeExtended mode);
 
+	String getJavaSubPackageName(ModeExtended mode);
+
 	String getFileName(Definition definition, ModeExtended mode);
 
 	File getFile(Definition definition, ModeExtended mode);
