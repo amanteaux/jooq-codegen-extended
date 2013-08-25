@@ -234,7 +234,7 @@ public class JavaExtendedGenerator extends JavaGenerator {
 		out.tab(1).println("}");
 
 		out.tab(1).javadoc("Generate a new select query on the %s table using the configuration defined in the DAO", table.getName());
-		out.tab(1).println("public org.jooq.SelectWhereStep<%s> selectFrom%s() {", tableRecord, getStrategy().getJavaClassName(table, Mode.DEFAULT));
+		out.tab(1).println("public org.jooq.SelectWhereStep<%s> fromTable() {", tableRecord);
 		out.tab(2).println("return newQuery().selectFrom(getTable());");
 		out.tab(1).println("}");
 
