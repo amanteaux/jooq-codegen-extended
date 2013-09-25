@@ -242,6 +242,7 @@ public class JavaExtendedGenerator extends JavaGenerator {
 			out.tab(1).javadoc("Generate a new unique ID for the primary key");
 			if (tType == Long.class.getName() || tType == String.class.getName()) {
 				out.tab(1).println("public %s generateId() {", tType);
+				// TODO the idGenerator class should be parameterized
 				out.tab(2).println("return org.jooq.util.IdGenerator.generate%s();", tType == Long.class.getName() ? "Long" : "String");
 				out.tab(1).println("}");
 			} else {
