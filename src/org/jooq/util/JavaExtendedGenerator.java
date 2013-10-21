@@ -3,7 +3,7 @@ package org.jooq.util;
 import java.io.File;
 import java.util.List;
 
-import org.jooq.Configuration;
+import org.jooq.ConfigurationExtended;
 import org.jooq.tools.JooqLogger;
 import org.jooq.tools.StopWatch;
 import org.jooq.util.ExtendedGeneratorStrategy.ModeExtended;
@@ -132,7 +132,7 @@ public class JavaExtendedGenerator extends JavaGenerator {
 			// Default constructor
 			// -------------------
 			out.tab(1).javadoc("Create a new %s with an attached configuration", className);
-			out.tab(1).println("public %s(%s configuration) {", className, Configuration.class);
+			out.tab(1).println("public %s(%s configuration) {", className, ConfigurationExtended.class);
 			out.tab(2).println("super(%s, %s.class, configuration);", tableIdentifier, beanChild);
 			out.tab(1).println("}");
 
@@ -195,7 +195,7 @@ public class JavaExtendedGenerator extends JavaGenerator {
 		// Default constructor
 		// -------------------
 		out.tab(1).javadoc("{@inheritDoc}");
-		out.tab(1).println("protected %s(org.jooq.Table<%s> table, Class<P> type, org.jooq.Configuration configuration) {", className, tableRecord);
+		out.tab(1).println("protected %s(org.jooq.Table<%s> table, Class<P> type, %s configuration) {", className, tableRecord, ConfigurationExtended.class);
 		out.tab(2).println("super(table, type, configuration);");
 		out.tab(1).println("}");
 
@@ -220,7 +220,7 @@ public class JavaExtendedGenerator extends JavaGenerator {
 		out.tab(1).println("public void save(P object) {");
 		out.tab(2).println("if (isNew(object)) {");
 		if (getExtendedStrategy().generateId()) {
-			out.tab(3).println("setId(object, generateId());");
+			out.tab(3).println("setId(object, configurationExtended().idGenerator().generate(%s.class));", tType == Long.class.getName() ? "Long" : "String");
 		}
 		out.tab(3).println("insert(object);");
 		out.tab(2).println("} else {");
@@ -237,18 +237,6 @@ public class JavaExtendedGenerator extends JavaGenerator {
 		out.tab(1).println("public org.jooq.SelectWhereStep<%s> fromTable() {", tableRecord);
 		out.tab(2).println("return newQuery().selectFrom(getTable());");
 		out.tab(1).println("}");
-
-		if (getExtendedStrategy().generateId()) {
-			out.tab(1).javadoc("Generate a new unique ID for the primary key");
-			if (tType == Long.class.getName() || tType == String.class.getName()) {
-				out.tab(1).println("public %s generateId() {", tType);
-				// TODO the idGenerator class should be parameterized
-				out.tab(2).println("return org.jooq.util.IdGenerator.generate%s();", tType == Long.class.getName() ? "Long" : "String");
-				out.tab(1).println("}");
-			} else {
-				out.tab(1).println("public abstract %s generateId();", tType);
-			}
-		}
 
 		for (ColumnDefinition column : table.getColumns()) {
 			final String colName = column.getOutputName();
