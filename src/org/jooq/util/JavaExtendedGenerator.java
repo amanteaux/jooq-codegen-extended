@@ -3,7 +3,6 @@ package org.jooq.util;
 import java.io.File;
 import java.util.List;
 
-import org.jooq.ConfigurationExtended;
 import org.jooq.tools.JooqLogger;
 import org.jooq.tools.StopWatch;
 import org.jooq.util.ExtendedGeneratorStrategy.ModeExtended;
@@ -132,7 +131,7 @@ public class JavaExtendedGenerator extends JavaGenerator {
 			// Default constructor
 			// -------------------
 			out.tab(1).javadoc("Create a new %s with an attached configuration", className);
-			out.tab(1).println("public %s(%s configuration) {", className, ConfigurationExtended.class);
+			out.tab(1).println("public %s(%s configuration) {", className, getExtendedStrategy().getSuperDaoConfiguration());
 			out.tab(2).println("super(%s, %s.class, configuration);", tableIdentifier, beanChild);
 			out.tab(1).println("}");
 
@@ -195,7 +194,7 @@ public class JavaExtendedGenerator extends JavaGenerator {
 		// Default constructor
 		// -------------------
 		out.tab(1).javadoc("{@inheritDoc}");
-		out.tab(1).println("protected %s(org.jooq.Table<%s> table, Class<P> type, %s configuration) {", className, tableRecord, ConfigurationExtended.class);
+		out.tab(1).println("protected %s(org.jooq.Table<%s> table, Class<P> type, %s configuration) {", className, tableRecord, getExtendedStrategy().getSuperDaoConfiguration());
 		out.tab(2).println("super(table, type, configuration);");
 		out.tab(1).println("}");
 
