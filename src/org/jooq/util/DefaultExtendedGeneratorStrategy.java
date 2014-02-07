@@ -6,7 +6,6 @@ import java.io.File;
 
 import org.jooq.ConfigurationExtended;
 import org.jooq.DAO;
-import org.jooq.DefaultConfigurationExtended;
 import org.jooq.impl.ExtendedDAOImpl;
 import org.jooq.tools.StringUtils;
 
@@ -73,7 +72,7 @@ public class DefaultExtendedGeneratorStrategy extends DefaultGeneratorStrategy i
 	
 	@Override
 	public Class<? extends ConfigurationExtended> getSuperDaoConfiguration() {
-		return DefaultConfigurationExtended.class;
+		return ConfigurationExtended.class;
 	}
 
 	@Override
