@@ -210,23 +210,6 @@ public class JavaExtendedGenerator extends JavaGenerator {
 		out.tab(2).println("object.%s(id);", getStrategy().getJavaSetterName(keyColumn, Mode.POJO));
 		out.tab(1).println("}");
 
-		out.tab(1).overrideInherit();
-		out.tab(1).println("public boolean isNew(P object) {");
-		out.tab(2).println("return getId(object) == null;");
-		out.tab(1).println("}");
-
-		out.tab(1).overrideInherit();
-		out.tab(1).println("public void save(P object) {");
-		out.tab(2).println("if (isNew(object)) {");
-		if (getExtendedStrategy().generateId()) {
-			out.tab(3).println("setId(object, configurationExtended().idGenerator().generate(%s.class));", tType == Long.class.getName() ? "Long" : "String");
-		}
-		out.tab(3).println("insert(object);");
-		out.tab(2).println("} else {");
-		out.tab(3).println("update(object);");
-		out.tab(2).println("}");
-		out.tab(1).println("}");
-
 		out.tab(1).javadoc("Create a new row query using the configuration defined in the DAO");
 		out.tab(1).println("public org.jooq.DSLContext newQuery() {");
 		out.tab(2).println("return org.jooq.impl.DSL.using(configuration());");
