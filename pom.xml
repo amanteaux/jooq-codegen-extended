@@ -13,8 +13,8 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.jooq</groupId>
-			<artifactId>jooq-extended</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>jooq-codegen</artifactId>
+			<version>3.3.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -105,4 +105,8 @@
 			<url>https://raw.github.com/amanteaux/${project.artifactId}/mvn-repo</url>
 		</repository>
 	</distributionManagement>
+	
+	<scm>
+		<connection>scm:git:git://github.com/amanteaux/jooq-extended.git</connection>
+	</scm>
 </project>

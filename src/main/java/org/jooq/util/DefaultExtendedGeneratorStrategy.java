@@ -4,9 +4,9 @@ import static org.jooq.util.GenerationUtil.convertToJavaIdentifier;
 
 import java.io.File;
 
-import org.jooq.ConfigurationExtended;
+import org.jooq.Configuration;
 import org.jooq.DAO;
-import org.jooq.impl.ExtendedDAOImpl;
+import org.jooq.impl.DAOImpl;
 import org.jooq.tools.StringUtils;
 
 public class DefaultExtendedGeneratorStrategy extends DefaultGeneratorStrategy implements ExtendedGeneratorStrategy {
@@ -67,12 +67,12 @@ public class DefaultExtendedGeneratorStrategy extends DefaultGeneratorStrategy i
 	@SuppressWarnings({ "unchecked" })
 	@Override
 	public Class<? extends DAO<?,?,?>> getSuperDao() {
-		return (Class<? extends DAO<?, ?, ?>>) ExtendedDAOImpl.class;
+		return (Class<? extends DAO<?, ?, ?>>) DAOImpl.class;
 	}
 	
 	@Override
-	public Class<? extends ConfigurationExtended> getSuperDaoConfiguration() {
-		return ConfigurationExtended.class;
+	public Class<? extends Configuration> getSuperDaoConfiguration() {
+		return Configuration.class;
 	}
 
 	@Override

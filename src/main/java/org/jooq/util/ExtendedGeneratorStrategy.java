@@ -2,7 +2,7 @@ package org.jooq.util;
 
 import java.io.File;
 
-import org.jooq.ConfigurationExtended;
+import org.jooq.Configuration;
 import org.jooq.DAO;
 
 /**
@@ -16,7 +16,7 @@ public interface ExtendedGeneratorStrategy extends GeneratorStrategy {
 
 	Class<? extends DAO<?,?,?>> getSuperDao();
 	
-	Class<? extends ConfigurationExtended> getSuperDaoConfiguration();
+	Class<? extends Configuration> getSuperDaoConfiguration();
 
 	void setChildEntitiesTargetDirectory(String directory);
 
