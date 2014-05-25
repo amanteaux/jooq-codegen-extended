@@ -66,8 +66,8 @@ public class DefaultExtendedGeneratorStrategy extends DefaultGeneratorStrategy i
 
 	@SuppressWarnings({ "unchecked" })
 	@Override
-	public Class<? extends DAO<?,?,?>> getSuperDao() {
-		return (Class<? extends DAO<?, ?, ?>>) DAOImpl.class;
+	public<T extends DAO<?, ?, ?>> Class<T> getSuperDao() {
+		return (Class<T>) DAOImpl.class;
 	}
 	
 	@Override

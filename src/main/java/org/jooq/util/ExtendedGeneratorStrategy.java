@@ -14,7 +14,7 @@ import org.jooq.DAO;
  */
 public interface ExtendedGeneratorStrategy extends GeneratorStrategy {
 
-	Class<? extends DAO<?,?,?>> getSuperDao();
+	<T extends DAO<?, ?, ?>> Class<T> getSuperDao();
 	
 	Class<? extends Configuration> getSuperDaoConfiguration();
 
